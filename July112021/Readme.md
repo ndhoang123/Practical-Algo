@@ -1,6 +1,7 @@
 # First Challenge:
 [Find K Closest Element](https://leetcode.com/problems/find-k-closest-elements/)
 
+Difficulty: Medium
 Status: Resolved!
 
 #Note:
