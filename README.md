@@ -1,2 +1,4 @@
 # Practical-Algo
-This repo is used to resolve challenge in leetcode
+This repo is used to solve challenge in leetcode
+
+Language used: C++.
