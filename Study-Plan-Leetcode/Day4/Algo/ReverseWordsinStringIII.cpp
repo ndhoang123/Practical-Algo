@@ -5,29 +5,14 @@ using namespace std;
 
 string reverseWords(string s)
 {
-    stringstream ss(s);
-    string word;
-    string result = "";
-    int sum = 0;
-    int first = 0, last;
-    while(ss >> word){
-        first = 0, last = word.size() - 1;
-        while(first <= last){
-            char temp = word[first];
-            word[first] = word[last];
-            word[last] = temp;
-            first++;
-            last--;
-        }
-        sum = sum + word.size() + 1;
-        if(sum >= s.size()){
-            result = result + word;
-        }
-        else{
-            result = result + word + " ";
+    int front = 0;
+    for(int i = 0; i <= s.size(); ++i){
+        if(i == s.size() || s[i] == ' '){
+            reverse(&s[front], &s[i]);
+            front = i + 1;
         }
     }
-    return result;
+    return s;
 }
 
 int main()
@@ -37,6 +22,5 @@ int main()
     for(auto it : result){
         cout << it << " ";
     }
-    cout << result.size() << " " << str.size();
     return 0;
 }
