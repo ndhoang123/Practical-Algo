@@ -5,7 +5,8 @@ using namespace std;
 
 int lengthOfLongestSubstring(string s)
 {
-    int max = 0, count = 0;
+    // My method
+    /*int max = 0, count = 0;
     unordered_map<char, int> hash;
     for (int j = 0; j < s.size(); j++)
     {
@@ -31,11 +32,29 @@ int lengthOfLongestSubstring(string s)
             max = count;
     }
     return max;
+    */
+
+    // Optimal method
+    int i = 0, j = 0, ans = 0, n = s.size();
+    unordered_set<char> set;
+    while (i < n && j < n)
+    {
+        if (set.find(s[j]) == set.end())
+        {
+            set.insert(s[j++]);
+            ans = max(ans, j - i);
+        }
+        else
+        {
+            set.erase(s[i++]);
+        }
+    }
+    return ans;
 }
 
 int main()
 {
-    string s = "dvdf";
+    string s = "abcabcabcbb";
     int value = lengthOfLongestSubstring(s);
     cout << value;
     return 0;
