@@ -29,19 +29,21 @@ Node *newNode(int data)
 
 Node *connect(Node *root)
 {
-    if (root == NULL)
-        return nullptr;
+    if (root == NULL) return nullptr;
     queue <Node *> q;
     q.push(root);
+    q.push(NULL);
     while (!q.empty())
     {
-        int n = q.size();
-        for(int i = 0; i < n; i++){
-            Node* temp = q.front();
-            q.pop();
-            if(i!=n-1) temp->next = q.front();
-            if(temp->left) q.push(temp->left);
-            if(temp->right) q.push(temp->right); 
+        Node *temp = q.front(); 
+        q.pop();
+        if(temp == NULL){
+            if(q.size() > 0) q.push(NULL);
+        }
+        else{
+            temp->next = q.front();
+            if(temp->left != NULL) q.push(temp->left);
+            if(temp->right != NULL) q.push(temp->right);
         }
     }
     return root;
