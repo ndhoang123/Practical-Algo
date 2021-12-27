@@ -2,24 +2,14 @@
 #include<bits/stdc++.h>
 
 using namespace std;
-// Divine and conquer
-int maxArray(vector<int>& nums, int L, int R){
-    if(L > R) return INT_MIN;
-    int mid = (L + R)/2, leftSum = 0, rightSum = 0;
-    for(int i = mid-1, curSum = 0; i >= L; i--){
-        curSum += nums[i];
-        leftSum = max(curSum, leftSum);
-    }
-    for (int i = mid+1, curSum = 0; i <= R; i++)
-    {
-        curSum += nums[i];
-        rightSum = max(curSum, rightSum);
-    }
-    return max({maxArray(nums, L, mid-1), maxArray(nums, mid+1, R), leftSum + nums[mid] + rightSum});
-}
-
+// Kadane's Algorithm
 int maxSubArray(vector<int>& nums){
-    return maxArray(nums, 0, nums.size() - 1);
+    int curMax = 0, maxTillNow = INT_MIN;
+    for(auto it : nums){
+        curMax = max(it, curMax + it);
+        maxTillNow = max(maxTillNow, curMax);
+    }
+    return maxTillNow;
 }
 
 int main(){
