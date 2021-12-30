@@ -6,20 +6,12 @@ using namespace std;
 
 vector<vector<int>> generate(int numRows)
 {
-    vector<vector<int>> result;
-    int cal = 0;
-    for(int i = 1; i <= numRows; i++){
-        vector<int> temp;
-        for(int j = 0; j < i; j++){
-            if(j == 0 || j == i - 1){
-                temp.push_back(1);
-            }
-            else{
-                cal = result[i-2][j-1] + result[i-2][j];
-                temp.push_back(cal);
-            }
+    vector<vector<int>> result(numRows);
+    for(int i = 0; i < numRows; i++){
+        result[i] = vector<int>(i+1, 1);
+        for(int j = 1; j < i; j++){
+            result[i][j] = result[i-1][j-1] + result[i-1][j];
         }
-        result.push_back(temp);
     }
     return result;
 }
@@ -28,5 +20,12 @@ int main(){
     int numRows;
     cin >> numRows;
     vector<vector<int>> result = generate(numRows);
+    for(int i = 0; i < result.size(); i++){
+        cout << i << ":";
+        for(int j = 0; j < result[i].size(); j++){
+            cout << result[i][j] << " ";
+        }
+        cout << endl;
+    }
     return 0;
 }
