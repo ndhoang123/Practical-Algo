@@ -6,18 +6,11 @@ using namespace std;
 bool canConstruct(string ransomNote, string magazine)
 {
     unordered_map<char, int> h;
-    for(int i = 0; i < ransomNote.size(); i++){
-        h[ransomNote[i]]++;
-    }
     for(int i = 0; i < magazine.size(); i++){
-        if(h.find(magazine[i]) != h.end()){
-            if(h[magazine[i]] > 0){
-                h[magazine[i]]--;
-            }
-        }
+        h[magazine[i]]++;
     }
     for(int i = 0; i < ransomNote.size(); i++){
-        if(h[ransomNote[i]]){
+        if(--h[ransomNote[i]] < 0){
             return false;
         }
     }
