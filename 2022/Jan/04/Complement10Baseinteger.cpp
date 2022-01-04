@@ -5,11 +5,9 @@
 using namespace std;
 
 int bitwiseComplement(int n){
-    int temp = n, bitmask = 1;
-    while(temp != 0){
-        bitmask = bitmask | 1;
-        temp = temp >> 1;
-        if(temp != 0) bitmask = bitmask << 1;
+    int bitmask = 1;
+    while(bitmask < n){
+        bitmask = (bitmask << 1) + 1;
     }
     return n ^ bitmask;
 }
