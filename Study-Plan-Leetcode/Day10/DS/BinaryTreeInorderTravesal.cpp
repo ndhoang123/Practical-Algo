@@ -24,7 +24,17 @@ void treeTraversal(TreeNode *root, vector<int> &result){
 vector<int> inorderTraversal(TreeNode *root)
 {
     vector<int> result;
-    treeTraversal(root, result);
+    stack<TreeNode*> st;
+    while(!st.empty() || root != NULL){
+        while(root != NULL){
+            st.push(root);
+            root = root->left;
+        }
+        root = st.top();
+        st.pop();
+        result.push_back(root->val);
+        root = root->right;
+    }
     return result;
 }
 
