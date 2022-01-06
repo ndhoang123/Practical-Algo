@@ -16,32 +16,12 @@ struct TreeNode
 
 int maxDepth(TreeNode *root)
 {
-    if(root == NULL) return 0;
-    queue<TreeNode *> q;
-    int maxNode = 0, it = 1, count = 0;
-    q.push(root);
-    while (!q.empty())
-    {
-        ++maxNode;
-        for (int i = 0; i < it; i++)
-        {
-            TreeNode *q1 = q.front();
-            q.pop();
-            if (q1->left != NULL)
-            {
-                q.push(q1->left);
-                count++;
-            }
-            if (q1->right != NULL)
-            {
-                q.push(q1->right);
-                count++;
-            }
-        }
-        it = count;
-        count = 0;
+    if(root == NULL){
+        return 0;
     }
-    return maxNode;
+    int left_node = maxDepth(root->left) + 1;
+    int right_node = maxDepth(root->right) + 1;
+    return left_node > right_node ? left_node : right_node;
 }
 
 int main()
