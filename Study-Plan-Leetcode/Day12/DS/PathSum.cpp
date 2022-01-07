@@ -16,31 +16,9 @@ struct TreeNode
 
 bool hasPathSum(TreeNode *root, int targetSum)
 {
-    if (root == NULL)
-        return targetSum == 0 ? true : false;
-    stack<pair<TreeNode *, int>> st;
-    int sum = 0;
-    while (!st.empty() || root != NULL)
-    {
-        while (root != NULL)
-        {
-            sum += root->val;
-            st.push({root, sum});
-            root = root->left;
-        }
-        root = st.top().first;
-        if (root->right == NULL && root->left == NULL)
-        {
-            if (sum == targetSum)
-            {
-                return true;
-            }
-        }
-        sum = st.top().second;
-        st.pop();
-        root = root->right;
-    }
-    return false;
+    if (root == NULL) return false;
+    if(targetSum == root->val && root->left == NULL && root->right == NULL) return true;
+    return hasPathSum(root->left, targetSum - root->val) || hasPathSum(root->right, targetSum - root->val);
 }
 
 int main()
