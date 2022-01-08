@@ -15,34 +15,16 @@ struct TreeNode
 };
 
 TreeNode* insertIntoBST(TreeNode* root, int val) {
-    if(root == NULL){
-        root = new TreeNode(val);
-        return root;
+    if(!root){
+        return new TreeNode(val);
     }
-    queue<TreeNode*> q;
-    q.push(root);
-    while (!q.empty())
-    {
-        TreeNode* temp = q.front();
-        q.pop();
-        if(temp->val < val){
-            if(temp->right != NULL){
-                q.push(temp->right);
-            }
-            else{
-                temp->right = new TreeNode(val);
-                break;
-            }
-        }
-        else{
-            if(temp->left != NULL){
-                q.push(temp->left);
-            }
-            else{
-                temp->left = new TreeNode(val);
-                break;
-            }
-        }
+
+    if(root->val < val){
+        root->right = insertIntoBST(root->right, val);
+    }
+
+    else{
+        root->left = insertIntoBST(root->left, val);
     }
     return root;
 }
