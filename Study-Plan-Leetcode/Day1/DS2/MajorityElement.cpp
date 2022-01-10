@@ -6,17 +6,18 @@ using namespace std;
 
 int majorityElement(vector<int> &nums)
 {
-    unordered_map<int, int> h;
+    int counter = 0, majority;
     for(auto num : nums){
-        if(++h[num] > nums.size() / 2){
-            return num;
+        if(counter == 0){
+            majority = num;
         }
+        counter += (num == majority) ? 1 : -1;
     }
-    return 0;
+    return majority;
 }
 
 int main(){
-    vector<int> nums{3,2,3};
+    vector<int> nums{1,1,1,3,3,3,2,3};
     int result = majorityElement(nums);
     cout << result;
     return 0;
