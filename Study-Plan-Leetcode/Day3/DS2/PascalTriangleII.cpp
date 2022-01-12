@@ -6,17 +6,13 @@ using namespace std;
 
 vector<int> getRow(int rowIndex)
 {
-    int tempVal = rowIndex + 1;
-    vector<vector<int>> temp(tempVal);
-    for (size_t i = 0; i < rowIndex + 1; i++)
-    {
-        temp[i] = vector<int>(i+1, 1);
-        for (size_t j = 1; j < i; j++)
-        {
-            temp[i][j] = temp[i-1][j-1] + temp[i-1][j];
-        }
+    vector<int> result(rowIndex+1, 1);
+    long C= 1;
+    for(int i = 1; i < rowIndex; i++){
+        C = C *(rowIndex - i + 1) / i;
+        result[i] = C;
     }
-    return temp[rowIndex];
+    return result;
 }
 
 int main(){
