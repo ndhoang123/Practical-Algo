@@ -8,15 +8,15 @@ int subarraySum(vector<int> &nums, int k)
 {
     int count = 0;
     int sum = 0;
+    unordered_map<int, int> h;
+    h[0]++;
     for (int i = 0; i < nums.size(); i++)
     {
-        sum = 0;
-        for(int j = i; j < nums.size(); j++){
-            sum += nums[j];
-            if(sum == k){
-                count++;
-            }
+        sum+=nums[i];
+        if(h.find(sum-k) != h.end()){
+            count += h[sum-k];
         }
+        h[sum]++;
     }
     return count;
 }
