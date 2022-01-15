@@ -24,6 +24,8 @@ int subarraySum(vector<int> &nums, int k)
 int main()
 {
     vector<int> nums{100,1,2,3,4};
+    //vector<int> nums{1,2,1,2,1};
+    //0,0;0
     int k;
     cin >> k;
     int result = subarraySum(nums, k);
