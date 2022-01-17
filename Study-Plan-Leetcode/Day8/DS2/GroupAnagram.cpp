@@ -6,23 +6,18 @@ using namespace std;
 
 vector<vector<string>> groupAnagrams(vector<string> &strs)
 {
-    int count = 0;
+    unordered_map<string, vector<string>> h;
     vector<vector<string>> result;
-    if(strs.size() == 0) return result;
-    unordered_map<string, int> h;
-    for(int i = 0; i < strs.size(); i++){
-        string temp = strs[i];
+    for(auto it : strs){
+        string temp = it;
         sort(temp.begin(), temp.end());
-        if(h.find(temp) == h.end()){
-            h[temp] = count;
-            result.push_back(vector<string>());
-            result[count].push_back(strs[i]);
-            count++;
-        }
-        else{
-            result[h[temp]].push_back(strs[i]);
-        }
+        h[temp].push_back(it);
     }
+
+    for(auto it : h){
+        result.push_back(it.second);
+    }
+
     return result;
 }
 
