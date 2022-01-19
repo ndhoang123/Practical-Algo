@@ -13,17 +13,34 @@ struct ListNode
 
 ListNode *detectCycle(ListNode *head)
 {
-    if(!head) return nullptr;
-    unordered_set<ListNode*> h;
-    ListNode *temp = head;
-    while(temp->next){
-        if(h.find(temp) == h.end()){
-            h.insert(temp);
-            temp = temp->next;
-        }
-        else{
-            return temp;
+    if (head == NULL || head->next == NULL)
+        return NULL;
+
+    ListNode *firstp = head;
+    ListNode *secondp = head;
+    bool isCycle = false;
+
+    while (firstp != NULL && secondp != NULL)
+    {
+        firstp = firstp->next;
+        if (secondp->next == NULL)
+            return NULL;
+        secondp = secondp->next->next;
+        if (firstp == secondp)
+        {
+            isCycle = true;
+            break;
         }
     }
-    return nullptr;
+
+    if (!isCycle)
+        return NULL;
+    firstp = head;
+    while (firstp != secondp)
+    {
+        firstp = firstp->next;
+        secondp = secondp->next;
+    }
+
+    return firstp;
 }
