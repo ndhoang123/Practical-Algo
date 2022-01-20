@@ -13,36 +13,16 @@ struct ListNode
 
 ListNode *getIntersectionNode(ListNode *headA, ListNode *headB)
 {
-    int countA = 0;
-    int countB = 0;
-    ListNode* tempA = headA;
+    ListNode *tempA = headA;
     ListNode* tempB = headB;
-    while (tempA != nullptr)
-    {
-        countA++;
+    while(tempA != nullptr && tempB != nullptr && tempA != tempB){
+        tempA = tempA->next;
+        tempB = tempB->next;
+        if(tempA == tempB) return tempA;
+        if(tempA == nullptr) tempA = headB;
+        if(tempB == nullptr) tempB = headA;
     }
-    while (tempB != nullptr)
-    {
-        countB++;
-    }
-    if(countA > countB){
-        for(int i = 0; i < countA - countB; i++){
-            headA = headA->next;
-        }
-    }
-    else if(countA < countB){
-        for(int i = 0; i < countB - countA; i++){
-            headB = headB->next;
-        }
-    }
-    while(headA != nullptr){
-        if(headA == headB){
-            return headA;
-        }
-        headA = headA->next;
-        headB = headB->next;
-    }
-    return nullptr;
+    return tempA;
 }
 
 int main(){
