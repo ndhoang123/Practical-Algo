@@ -13,33 +13,41 @@ struct ListNode
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
 
+ListNode* findMiddle(ListNode *head){
+    ListNode* slow = head, *fast = head;
+    while(fast && fast->next){
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+    return slow;
+}
+
+ListNode* reverseList(ListNode *head){
+    ListNode *prev = nullptr;
+    while(head != nullptr){
+        ListNode *next = head->next;
+        head->next = prev;
+        prev = head;
+        head = next;
+    }
+    return prev;
+}
+
 void reorderList(ListNode *head)
 {
-    deque<ListNode*> de;
-    ListNode* temp = head->next;
-    while(temp != nullptr){
-        de.push_back(temp);
-        temp = temp->next;
-    }
-    ListNode* itr = head;
-    while(!de.empty()){
-        ListNode* back = de.back();
-        de.pop_back();
-        itr->next = back;
-        itr = itr->next;
-        if(de.empty()){
-            itr->next = nullptr;
-            itr = itr->next;
-            break;
+    if(!head->next) return;
+    ListNode* middle = findMiddle(head);
+    ListNode* R = reverseList(middle);
+    ListNode* L = head->next;
+    ListNode* temp = head;
+    for(int i = 0; L != R; i++, temp = temp->next){
+        if(i == 0 || i % 2 == 0){
+            temp->next = R;
+            R = R->next;
         }
-        ListNode* front = de.front();
-        de.pop_front();
-        itr->next = front;
-        itr = itr->next;
-        if(de.empty()){
-            itr->next = nullptr;
-            itr = itr->next;
-            break;
+        else{
+            temp->next = L;
+            L = L->next;
         }
     }
 }
@@ -49,7 +57,7 @@ int main(){
     head->next = new ListNode(2);
     head->next->next = new ListNode(3);
     head->next->next->next = new ListNode(4);
-    head->next->next->next->next = new ListNode(5);
+    // head->next->next->next->next = new ListNode(5);
     reorderList(head);
     while(head != nullptr){
         cout << head->val << " ";
