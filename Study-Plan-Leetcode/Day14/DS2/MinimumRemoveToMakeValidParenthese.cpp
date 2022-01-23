@@ -6,35 +6,65 @@ using namespace std;
 
 string minRemoveToMakeValid(string s)
 {
-    string result = "";
-    stack<char> st;
-    for(int i = 0; i < s.size(); i++){
-        if(s[i] == '('){
-            st.push(i);
+    int n = s.length();
+    // Step 1 : Iterate from start
+    int count = 0;
+    for (int i = 0; i < n; ++i)
+    {
+        if (s[i] == '(')
+        { // for open bracket
+            ++count;
         }
-        if(s[i] == ')'){
-            if(st.empty()){
+        else if (s[i] == ')')
+        { // for close bracket
+            if (count == 0)
+            { // if no. of close brackets > no. of open brackets
                 s[i] = '#';
             }
-            else{
-                st.pop();
+            else
+            {
+                // if matching parentheses found decrease count
+                --count;
             }
         }
     }
-    while (!st.empty()){
-        s[st.top()] = '#';
-        st.pop();
-    }
 
-    for(int i = 0; i < s.size(); i++){
-        if(s[i] != '#'){
-            result.push_back(s[i]);
+    // Step 2 : Iterate from end
+    count = 0;
+    for (int i = n - 1; i >= 0; --i)
+    {
+        if (s[i] == ')')
+        { // for close bracket
+            ++count;
+        }
+        else if (s[i] == '(')
+        { // for open bracket
+            if (count == 0)
+            { // if no. of open brackets > no. of close brackets
+                s[i] = '#';
+            }
+            else
+            {
+                // if matching parentheses found decrease count
+                --count;
+            }
         }
     }
-    return result;
+
+    // Step 3 : Create "ans" by ignoring the special characters '#'
+    string ans = "";
+    for (int i = 0; i < n; ++i)
+    {
+        if (s[i] != '#')
+        {
+            ans.push_back(s[i]);
+        }
+    }
+    return ans;
 }
 
-int main(){
+int main()
+{
     string s = "))((";
     string result = minRemoveToMakeValid(s);
     cout << result << " ";
