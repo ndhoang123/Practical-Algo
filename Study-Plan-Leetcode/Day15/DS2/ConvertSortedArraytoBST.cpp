@@ -14,34 +14,46 @@ struct TreeNode
     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
 
-TreeNode *sortedArrayToBST(vector<int> &nums, int l = 0, int r = INT_MIN)
+TreeNode *sortedArrayToBST(vector<int> &nums)
 {
-    if(r == INT_MIN) r = nums.size();
-    if(l >= r) return nullptr;
-    int middle = (l + r) / 2;
-    return new TreeNode(nums[middle], sortedArrayToBST(nums, l, middle), sortedArrayToBST(nums, middle+1, r));
+    if (nums.empty())
+    {
+        return nullptr;
+    }
+    if (nums.size() == 1)
+    {
+        return new TreeNode(nums[0]);
+    }
+    int middle = (nums.size()) / 2;
+    vector<int> l(nums.begin(), nums.begin() + middle);
+    vector<int> r(nums.begin() + middle + 1, nums.end());
+    return new TreeNode(nums[middle], sortedArrayToBST(l), sortedArrayToBST(r));
 }
 
-void treeTraversal(TreeNode* result){
-    queue<TreeNode*> q;
+void treeTraversal(TreeNode *result)
+{
+    queue<TreeNode *> q;
     q.push(result);
     while (!q.empty())
     {
-        TreeNode* temp = q.front();
+        TreeNode *temp = q.front();
         q.pop();
         cout << temp->val << " ";
-        if(temp->left){
+        if (temp->left)
+        {
             q.push(temp->left);
         }
-        if(temp->right){
+        if (temp->right)
+        {
             q.push(temp->right);
         }
     }
 }
 
-int main(){
+int main()
+{
     vector<int> nums{1, 3}; //-10,-3,0,5,9
-    TreeNode* result = sortedArrayToBST(nums);
+    TreeNode *result = sortedArrayToBST(nums);
     treeTraversal(result);
     // cout << (nums.size()-1)/2 << " ";
     // vector<int>left(nums.begin(), nums.begin() + (nums.size()-1)/2);
