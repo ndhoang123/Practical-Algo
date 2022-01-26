@@ -16,24 +16,20 @@ struct TreeNode
 
 int kthSmallest(TreeNode *root, int k)
 {
-    queue<TreeNode*> q;
-    vector<int> v;
-    q.push(root);
-    while (!q.empty())
+    stack<TreeNode*> st;
+    while (true)
     {
-        TreeNode* temp = q.front();
-        q.pop();
-        v.push_back(temp->val);
-        if(temp->left != nullptr){
-            q.push(temp->left);
+        while(root != nullptr){
+            st.push(root);
+            root = root->left;
         }
-        if(temp->right != nullptr){
-            q.push(temp->right);
-        }
+        root = st.top();
+        st.pop();
+        if(--k == 0) return root->val;
+        root = root->right;
     }
-    sort(v.begin(), v.end());
-    return v[k-1];
 }
+// TC: O(H + k), SC: O(H)
 
 int main(){
     TreeNode* root = new TreeNode(3);
