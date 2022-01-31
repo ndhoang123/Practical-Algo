@@ -6,14 +6,9 @@ using namespace std;
 
 int maximumWealth(vector<vector<int>> &accounts)
 {
-    int count = 0;
     int maxTillNow = 0;
     for(auto it : accounts){
-        for(int i = 0; i < it.size(); i++){
-            count += it[i];
-        }
-        maxTillNow = max(count, maxTillNow);
-        count = 0;
+        maxTillNow = max(maxTillNow, accumulate(it.begin(), it.end(), 0));
     }
     return maxTillNow;
 }
