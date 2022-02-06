@@ -4,45 +4,15 @@
 
 using namespace std;
 
-struct NodeList{
-    int val;
-    NodeList* next;
-    NodeList(int val) : val(val), next(nullptr) {}
-};
-
 int removeDuplicates(vector<int> &nums)
 {
-    int count = 0;
     int i = 0;
-    int lastElem = nums[0];
-    NodeList* head = new NodeList(0);
-    NodeList* temp = head;
-    for(auto it : nums){
-        if(it == lastElem){
-            ++count;
-            if(count < 3){
-                temp->next = new NodeList(it);
-                temp = temp->next;
-            }
-        }
-        else{
-            count = 1;
-            temp->next = new NodeList(it);
-            lastElem = it;
-            temp = temp->next;
+    for(int n : nums){
+        if(i < 2 || n > nums[i-2]){
+            nums[i++] = n;
         }
     }
-    temp->next = nullptr;
-    head = head->next;
-    count = 0;
-    while(head != nullptr){
-        cout << head->val << " ";
-        ++count;
-        nums[i] = head->val;
-        head = head->next;
-        ++i;
-    }
-    return count;
+    return i;
 }
 
 int main(){
