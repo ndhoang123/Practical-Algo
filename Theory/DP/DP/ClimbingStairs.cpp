@@ -5,22 +5,28 @@
 
 using namespace std;
 
-int climbStairs(int n) {
-    if(n == 1) return 1;
-    if(n == 2) return 2;
-    int lastestStair = 2, lastStair = 1, currentStair;
-    for(int i = 3; i <= n; i++){
-        currentStair = lastestStair + lastStair;
-        lastStair = lastestStair;
-        lastestStair = currentStair;
+class Solution {
+private:
+    unordered_map<int, int> h;
+    int dp(int n){
+        if(n <= 2) return n;
+        if(h.find(n) == h.end()){
+            h[n] = dp(n-1) + dp(n-2);
+        }
+        return h[n];
     }
-    return currentStair;
-}
+
+public:
+    int climbStairs(int n) {
+        return dp(n);
+    }
+};
 
 int main(){
     int n;
     cin >> n;
-    int result = climbStairs(n);
+    Solution s = Solution();
+    int result = s.climbStairs(n);
     cout << result;
     return 0;
 }
