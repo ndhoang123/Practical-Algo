@@ -1,4 +1,5 @@
 // https://leetcode.com/problems/add-digits/
+// https://en.wikipedia.org/wiki/Digital_root
 
 #include <bits/stdc++.h>
 
