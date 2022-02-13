@@ -4,21 +4,18 @@
 
 using namespace std;
 
-void sets(vector<int>& nums, int i, vector<int>& sub, vector<vector<int>>& subs){
-    subs.push_back(sub);
-    for(int j = i; j < nums.size(); j++){
-        sub.push_back(nums[j]);
-        sets(nums, j+1, sub, subs);
-        sub.pop_back();
-    }
-}
-
 vector<vector<int>> subsets(vector<int> &nums)
 {
-    vector<int> sub;
-    vector<vector<int>> subs;
-    sets(nums, 0, sub, subs);
-    return subs;
+    int n = nums.size(), p = 1 << n;
+    vector<vector<int>> h(p);
+    for(int i = 0; i < p; i++){
+        for(int j = 0; j < nums.size(); j++){
+            if((i >> j) & 1){
+                h[i].push_back(nums[j]);
+            }
+        }
+    }
+    return h;
 }
 
 int main(){
