@@ -15,29 +15,7 @@ struct TreeNode
 };
 
 int maxDepth(TreeNode* root){
-    if(root == nullptr) return 0;
-    queue<TreeNode*> q;
-    int maxDepth = 0, it = 1, count = 0;
-    q.push(root);
-    while (!q.empty())
-    {
-        ++maxDepth;
-        for(int i = 0; i < it; i++){
-            TreeNode *temp = q.front();
-            q.pop();
-            if(temp->left != nullptr){
-                count++;
-                q.push(temp->left);
-            }
-            if(temp->right != nullptr){
-                count++;
-                q.push(temp->right);
-            }
-        }
-        it = count;
-        count = 0;
-    }
-    return maxDepth;
+    return root == nullptr ? 0 : max(maxDepth(root->left), maxDepth(root->right)) + 1;
 }
 
 int main(){
