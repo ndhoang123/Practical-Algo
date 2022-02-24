@@ -13,23 +13,47 @@ struct ListNode
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
 
+ListNode* getMid(ListNode* head){
+    ListNode* midPrev = nullptr;
+    while (head != nullptr && head->next != nullptr)
+    {
+        midPrev = midPrev == nullptr ? head : midPrev->next;
+        head = head->next->next;
+    }
+    ListNode* mid = midPrev->next;
+    midPrev->next = nullptr;
+    return mid;
+}
+
+ListNode* merge(ListNode* l1, ListNode* l2){
+    ListNode* dummyhead = new ListNode(0);
+    ListNode* temp = dummyhead;
+    while (l1 != nullptr && l2 != nullptr)
+    {
+        cout << l1->val << " " << l2->val << endl;
+        if(l1->val < l2->val){
+            temp->next = l1;
+            l1 = l1->next;
+        }
+        else{
+            temp->next = l2;
+            l2 = l2->next;
+        }
+        temp = temp->next;
+    }
+    temp->next = (l1) ? l1 : l2;
+    return dummyhead->next;
+}
+
 ListNode* sortList(ListNode* head)
 {
-    priority_queue<int> h;
-    while (head != nullptr)
-    {
-        h.push(head->val);
-        head = head->next;
+    if(!head || !head->next){
+        return head;
     }
-    ListNode* result = nullptr;
-    while (!h.empty())
-    {
-        ListNode* temp = new ListNode(h.top());
-        h.pop();
-        temp->next = result;
-        result = temp;
-    }
-    return result;
+    ListNode* mid = getMid(head);
+    ListNode* left = sortList(head);
+    ListNode* right = sortList(mid);
+    return merge(left, right);
 }
 
 int main(){
