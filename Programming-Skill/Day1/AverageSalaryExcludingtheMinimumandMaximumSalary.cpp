@@ -12,14 +12,9 @@ double average(vector<int> &salary)
     for(int i = 0; i < salary.size(); i ++){
         if(salary[i] > high) high = salary[i];
         if(salary[i] < low) low = salary[i];
+        scr += salary[i];
     }
-    for(int i = 0; i < salary.size(); i++){
-        if(salary[i] != high && salary[i] != low){
-            scr += salary[i];
-            number++;
-        }
-    }
-    return (double)scr/number;
+    return (double)(scr - high- low)/(salary.size() - 2);
 }
 
 int main(){
