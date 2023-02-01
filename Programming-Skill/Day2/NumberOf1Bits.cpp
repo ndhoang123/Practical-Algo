@@ -1,17 +1,11 @@
 // https://leetcode.com/problems/number-of-1-bits/description/?envType=study-plan&id=programming-skills-i
-#include <iostream>
-#include <vector>
+#include <bits/stdc++.h>
 
 using namespace std;
 
 int hammingWeight(uint32_t n)
 {
-    int count = 0;
-    while (n > 0){
-        n &= (n - 1);
-        count++;
-    }
-    return count;
+    return bitset<32>(n).count();
 }
 
 int main()
