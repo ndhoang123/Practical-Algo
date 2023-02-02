@@ -15,20 +15,18 @@ bool isTriangle(int num1, int num2, int num3)
 int largestPerimeter(vector<int> &nums)
 {
     sort(nums.begin(), nums.end());
-    int p = 0, i = 0;
-    while(i + 2 < nums.size())
-    {
-        if(isTriangle(nums[i], nums[i+1], nums[i+2]) && nums[i]+nums[i+1]+nums[i+2] > p){
-            p = nums[i]+nums[i+1]+nums[i+2];
+    int p = 0;
+    for(int i = nums.size() - 1; i >= 2; i--){
+        if(isTriangle(nums[i], nums[i-1], nums[i-2])){
+            return nums[i]+nums[i-1]+nums[i-2];
         }
-        i++;
     }
     return p;
 }
 
 int main()
 {
-    vector<int> nums = {1,2,1,10};
+    vector<int> nums = {2,1,2};
     int res = largestPerimeter(nums);
     cout << res;
     return 0;
