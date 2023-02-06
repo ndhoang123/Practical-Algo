@@ -5,16 +5,21 @@ using namespace std;
 
 void moveZeroes(vector<int> &nums)
 {
-    vector<int> nums1(nums.size(), 0);
-    int j = 0;
-    for(int i = 0; i < nums.size(); i++)
+    int temp = 0;
+    for(int i = 0; i < nums.size() - 1; i++)
     {
-        if(nums[i] != 0){
-            nums1[j] = nums[i];
-            j++;
+        for(int j = i + 1; j < nums.size(); j++)
+        {
+            if(nums[i] != 0){
+                break;
+            }
+            if(nums[i] != nums[j]){
+                temp = nums[i];
+                nums[i] = nums[j];
+                nums[j] = temp;
+            }
         }
     }
-    nums = nums1;
 }
 
 int main()
