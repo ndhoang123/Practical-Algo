@@ -1,4 +1,4 @@
-// https://leetcode.com/problems/find-the-difference/?envType=study-plan&id=programming-skills-i
+// https://leetcode.com/problems/merge-strings-alternately/?envType=study-plan&id=programming-skills-i
 #include <bits/stdc++.h>
 
 using namespace std;
