@@ -5,16 +5,16 @@ using namespace std;
 
 char findTheDifference(string s, string t)
 {
-    unordered_map<char, int> hs;
+    char ch = t[0];
+    for(int i = 1; i < t.size(); i++)
+    {
+        ch ^= t[i];
+    }
     for(int i = 0; i < s.size(); i++)
     {
-        hs[s[i]]++;
+        ch ^= s[i];
     }
-    for(int i = 0; i < t.size(); i++)
-    {
-        if(--hs[t[i]] < 0) return t[i];
-    }
-    return '\0';
+    return ch;
 }
 
 int main()
