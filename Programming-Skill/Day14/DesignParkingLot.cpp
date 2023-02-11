@@ -6,34 +6,17 @@ using namespace std;
 class ParkingSystem
 {
 private:
-    int bigSize, mediumSize, smallSize;
+    vector<int> count;
 
 public:
-    ParkingSystem(int big, int medium, int small)
+    ParkingSystem(int b, int m, int s)
     {
-        bigSize = big;
-        mediumSize = medium;
-        smallSize = small;
+        count = {b, m, s};
     }
 
     bool addCar(int carType)
     {
-        if (carType == 1 && bigSize > 0)
-        {
-            bigSize--;
-            return true;
-        }
-        if (carType == 2 && mediumSize > 0)
-        {
-            mediumSize--;
-            return true;
-        }
-        if (carType == 3 && smallSize > 0)
-        {
-            smallSize--;
-            return true;
-        }
-        return false;
+        return count[carType - 1]-- > 0;
     }
 };
 
