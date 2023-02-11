@@ -5,22 +5,19 @@ using namespace std;
 
 class NumArray {
 private:
-    vector<int> ns;
+    vector<int> prefixSum;
 public:
     NumArray(vector<int>& nums) {
-        ns = nums;
+        prefixSum.push_back(nums[0]);
+        for(int i = 1; i < nums.size(); i++)
+        {
+            prefixSum.push_back(nums[i] + prefixSum[i-1]);
+        }
     }
     
     int sumRange(int left, int right) {
-        int count = 0;
-        while(left <= right)
-        {
-            if(left == right) count += ns[left];
-            else count += ns[left] + ns[right];
-            left++;
-            right--;
-        }
-        return count;
+        if(left == 0) return prefixSum[right];
+        return prefixSum[right] - prefixSum[left-1];
     }
 };
 
